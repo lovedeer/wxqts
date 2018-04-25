@@ -3,31 +3,31 @@ $(function() {
 		'title': '特种设备监察平台',
 		'icon': 'images/1.png',
 		'iconHover': 'images/a.png',
-		'a_href': 'http://58.215.62.147:8067'
+		'a_href': 'app?redirectUrl=http://58.215.62.147:8067'
 	}, {
 		'title': '特种设备检验平台',
 		'icon': 'images/2.png',
 		'iconHover': 'images/b.png',
-		'a_href': 'http://58.215.62.147:8066'
+		'a_href': 'app?redirectUrl=http://58.215.62.147:8066'
 	}, {
 		'title': '电梯维保平台',
 		'icon': 'images/3.png',
 		'iconHover': 'images/c.png',
-		'a_href': 'http://58.215.62.147:8064'
+		'a_href': 'app?redirectUrl=http://58.215.62.147:8064'
 	}, {
 		'title': '企业服务平台',
 		'icon': 'images/4.png',
 		'iconHover': 'images/d.png',
-		'a_href': 'http://58.215.62.147:8063'
+		'a_href': 'app?redirectUrl=http://58.215.62.147:8063'
 	}, {
 		'title': '决策分析平台',
 		'icon': 'images/5.png', 
 		'iconHover': 'images/e.png',
-		'a_href': 'http://58.215.62.147:8065/WebReport/ReportServer?op=fs_load&cmd=fs_signin'
+		'a_href': 'app?redirectUrl=http://58.215.62.147:8065/WebReport/ReportServer?op=fs_load&cmd=fs_signin'
 	}];
 	var li = '';
 	for(var i = 0; i < linkLists.length; i++) {
-		li += '<li class="li l' + i + '">' + '<a href="' + linkLists[i]['a_href'] + '" target="_blank"><img src="' + linkLists[i]['icon'] + '" /><p class="titles">'+linkLists[i]['title'] +'</p></a>' + '</li>';
+		li += '<li class="li l' + i + '">' + '<a href="' + linkLists[i]['a_href'] + '" ><img src="' + linkLists[i]['icon'] + '" /><p class="titles">'+linkLists[i]['title'] +'</p></a>' + '</li>';
 	}
 	var ul = '<ul id="list" class="clearfix">' + li + '</ul>';
 	$('.row').append(ul);

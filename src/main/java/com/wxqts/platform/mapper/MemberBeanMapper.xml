@@ -1,0 +1,45 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wxqts.platform.dao.MemberBeanDao">
+	<cache />
+	<resultMap id="userMap" type="memberBean">
+		<id property="userId" column="user_id" />
+		<result property="username" column="user_name" />
+		<result property="password" column="password" />
+		<result property="personUniCode" column="person_unicode" />
+		<result property="salt" column="salt" />
+	</resultMap>
+
+	<select id="getMemberByUsername" parameterType="java.lang.String"
+		resultMap="userMap">
+		SELECT * FROM t_member where user_name = #{username}
+	</select>
+
+	<select id="get" parameterType="int" resultMap="userMap">
+		SELECT * FROM t_member where user_id = #{userId}
+	</select>
+
+	<select id="queryMemberByUsername" parameterType="java.lang.String"
+		resultMap="userMap">
+		SELECT * FROM t_member WHERE user_name like #{username}
+	</select>
+
+	<select id="queryAllMembers" parameterType="java.lang.String"
+		resultMap="userMap">
+		SELECT * FROM t_member
+	</select>
+
+	<insert id="save" parameterType="memberBean" keyProperty="id"
+		useGeneratedKeys="true">
+		INSERT INTO t_member (user_name, password) values (#{username}, #{password})
+	</insert>
+
+	<insert id="update" parameterType="memberBean">
+		UPDATE t_member SET user_name = #{username}, password = #{password} WHERE
+		user_id = #{userId}
+	</insert>
+
+	<delete id="remove" parameterType="memberBean">
+		DELETE FROM t_member WHERE user_id = #{userId}
+	</delete>
+</mapper>
