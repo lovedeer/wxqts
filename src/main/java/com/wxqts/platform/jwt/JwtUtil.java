@@ -1,6 +1,8 @@
 package com.wxqts.platform.jwt;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTCreator.Builder;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
@@ -50,9 +53,13 @@ public class JwtUtil {
 
 		String token = null;
 		try {
-			token = JWT.create().withHeader(headerMap).withClaim(SsoConstants.PAYLOAD, JSON.toJSONString(object))
-					.withClaim(SsoConstants.EXPIRE, new DateTime(expire).toDate())
+			Builder builder = JWT.create().withHeader(headerMap);
+			token = withObject(builder, object).withClaim(SsoConstants.EXPIRE, new DateTime(expire).toDate())
 					.sign(Algorithm.HMAC256(SsoConstants.SECRET));
+			// token = builder.withClaim(SsoConstants.PAYLOAD,
+			// JSON.toJSONString(object))
+			// .withClaim(SsoConstants.EXPIRE, new DateTime(expire).toDate())
+			// .sign(Algorithm.HMAC256(SsoConstants.SECRET));
 		} catch (Exception e) {
 			if (logger.isDebugEnabled()) {
 				logger.debug("create token failed :" + e.getMessage());
@@ -130,11 +137,11 @@ public class JwtUtil {
 		JWTVerifier verifier = null;
 		try {
 			verifier = JWT.require(Algorithm.HMAC256(SsoConstants.SECRET)).build();
-			DecodedJWT jwt = verifier.verify(token);
-			Map<String, Claim> claims = jwt.getClaims();
-			if (!claims.containsKey(SsoConstants.PAYLOAD)) {
-				return false;
-			}
+			verifier.verify(token);
+			// Map<String, Claim> claims = jwt.getClaims();
+			// if (!claims.containsKey(SsoConstants.PAYLOAD)) {
+			// return false;
+			// }
 		} catch (Exception e) {
 			if (logger.isDebugEnabled()) {
 				logger.debug("token verify failed");
@@ -144,4 +151,40 @@ public class JwtUtil {
 		return true;
 	}
 
+	/**
+	 * 反射获取token payload对象属性值
+	 * 
+	 * @param builder
+	 * @param object
+	 * @return
+	 */
+	protected static <T> Builder withObject(Builder builder, T object) {
+		Field[] fields = object.getClass().getDeclaredFields();
+		for (Field field : fields) {
+			if (field.getName().equals("serialVersionUID")) {
+				continue;
+			}
+			if (!field.isAccessible()) {
+				try {
+					field.setAccessible(true);
+					if (field.getGenericType().equals(String.class)) {
+						builder.withClaim(field.getName(), String.valueOf(field.get(object)));
+					} else if (field.getGenericType().equals(int.class) || field.getType().equals(Integer.class)) {
+						builder.withClaim(field.getName(), Integer.parseInt(String.valueOf(field.get(object))));
+					} else if (field.getGenericType() == long.class || field.getType().equals(Long.class)) {
+						builder.withClaim(field.getName(), Long.parseLong(String.valueOf(field.get(object))));
+					} else if (field.getGenericType() == double.class || field.getType().equals(Double.class)) {
+						builder.withClaim(field.getName(), Double.parseDouble(String.valueOf(field.get(object))));
+					} else if (field.getType().equals(boolean.class)) {
+						builder.withClaim(field.getName(), (boolean) field.get(object));
+					} else if (field.getType().equals(Date.class)) {
+						builder.withClaim(field.getName(), (Date) field.get(object));
+					}
+				} catch (Exception e) {
+					logger.error(e.getMessage());
+				}
+			}
+		}
+		return builder;
+	}
 }

@@ -1,16 +1,15 @@
 package com.wxqts.platform.service;
 
+import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import org.apache.shiro.cache.Cache;
+import org.springframework.stereotype.Component;
 
 /**
  * @author zhoulong E-mail:zhoulong@163.com
  * @date 2018年4月23日
  */
-@Service("tokenService")
+@Component("tokenService")
 public class TokenService {
 	@Autowired
 	private EhCacheManager cacheManager;

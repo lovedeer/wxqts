@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="css/sso.css" />
 <meta name="viewport" content="width=device-width" />
-<link rel="stylesheet" href="css/bootstrap.css" />
+<link rel="stylesheet" href="css/bootstrap.min.css" />
 <link rel="stylesheet" href="css/font-awesome.css" />
 <link rel="stylesheet" href="css/templatemo_main.css" />
 <title>无锡市质量技术监督局</title>
@@ -124,6 +124,11 @@ footer {
 	height: 30px;
 	line-height: 30px;
 }
+div.mainDiv {
+	text-align:center;
+	height:100%;
+	overflow:auto !important
+}
 
 @media only screen and (min-width: 100px) and (max-width: 1550px) {
 	#list>li>a>img {
@@ -136,9 +141,9 @@ footer {
 </style>
 </head>
 <body>
-	<div id="main-wrapper" style="text-align:center">
+	<div id="main-wrapper" class="mainDiv">
 		<div
-			class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center templatemo-logo margin-top-20">
+			class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center templatemo-logo margin-top-20" style="margin-top:40px">
 			<p id="logo">
 				<img src="images/logo.png" usemap="#planetmap" alt="Planets" border="0" />
 				<map name="planetmap" id="planetmap">

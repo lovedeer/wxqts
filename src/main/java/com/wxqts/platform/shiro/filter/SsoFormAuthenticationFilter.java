@@ -53,9 +53,10 @@ public class SsoFormAuthenticationFilter extends FormAuthenticationFilter {
 			Subject subject = getSubject(request, response);
 			// 用户名与密码认证
 			subject.login(token);
-//			// 用户名写进session
-//			((HttpServletRequest) request).getSession().setAttribute(SsoConstants.USER_SESSION_KEY,
-//					token.getPrincipal().toString());
+			// // 用户名写进session
+			// ((HttpServletRequest)
+			// request).getSession().setAttribute(SsoConstants.USER_SESSION_KEY,
+			// token.getPrincipal().toString());
 			// 检查应用访问权限
 			if (needCheckPermission) {
 				if (logger.isDebugEnabled()) {
@@ -96,12 +97,15 @@ public class SsoFormAuthenticationFilter extends FormAuthenticationFilter {
 		SavedRequest savedRequest = WebUtils.getAndClearSavedRequest(request);
 		// 若有保存的请求地址，则跳转到该地址，否则跳转到预定义的成功地址
 		if (savedRequest != null && savedRequest.getMethod().equalsIgnoreCase(AccessControlFilter.GET_METHOD)) {
-			// 形如redirect=
-			String redirectUrlKey = SsoConstants.REDIRECT_APP_URL_KEY + "=";
+
 			// 跳转地址带上用户名参数
-			successUrl = savedRequest.getQueryString().substring(redirectUrlKey.length()) + "?"
-					+ SsoConstants.TOKEN_NAME + "=" + jwtToken;
-			contextRelative = false;
+			if (savedRequest.getQueryString() != null && savedRequest.getQueryString().contains(SsoConstants.REDIRECT_APP_URL_KEY)) {
+				// 形如redirect=
+				String redirectUrlKey = SsoConstants.REDIRECT_APP_URL_KEY + "=";
+				successUrl = savedRequest.getQueryString().substring(redirectUrlKey.length()) + "?"
+						+ SsoConstants.TOKEN_NAME + "=" + jwtToken;
+				contextRelative = false;
+			}
 		}
 
 		if (successUrl == null) {
