@@ -24,6 +24,7 @@
 		<shiro.version>1.4.0</shiro.version>
 		<slf4j.version>1.7.5</slf4j.version>
 		<java.version>1.8</java.version>
+		<thymeleaf-shiro.version>2.0.0</thymeleaf-shiro.version>
 	</properties>
 
 	<dependencies>
@@ -148,6 +149,11 @@
 			<artifactId>portlet-api</artifactId>
 			<version>2.0</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.github.theborakompanioni</groupId>
+			<artifactId>thymeleaf-extras-shiro</artifactId>
+			<version>${thymeleaf-shiro.version}</version>
 		</dependency>
 	</dependencies>
 

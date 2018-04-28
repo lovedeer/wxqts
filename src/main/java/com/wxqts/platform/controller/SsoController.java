@@ -85,9 +85,14 @@ public class SsoController {
 		return SsoConstants.LOGIN_URL.substring(1);
 	}
 
-	@RequestMapping(value = SsoConstants.ON_SUCCESS_URL )
+	@RequestMapping(value = SsoConstants.ON_SUCCESS_URL)
 	public String index(HttpServletRequest req, Model model) {
 		return SsoConstants.ON_SUCCESS_URL.substring(1);
+	}
+
+	@RequestMapping(value = "admin_index")
+	public String admin_index(HttpServletRequest req, Model model) {
+		return "manage";
 	}
 
 }
