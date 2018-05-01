@@ -25,6 +25,12 @@
 		<slf4j.version>1.7.5</slf4j.version>
 		<java.version>1.8</java.version>
 		<thymeleaf-shiro.version>2.0.0</thymeleaf-shiro.version>
+		<aspectj.version>1.7.3</aspectj.version>
+		<druid.version>1.0.26</druid.version>
+		<tk.mybatis.version>3.3.9</tk.mybatis.version>
+		<tk.pagehelper.version>4.1.6</tk.pagehelper.version>
+		<druid.version>1.0.26</druid.version>
+		<httpclient.version>4.5.2</httpclient.version>
 	</properties>
 
 	<dependencies>
@@ -52,11 +58,29 @@
 			<artifactId>ojdbc7</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
-			<version>1.0.28</version>
+			<version>${druid.version}</version>
+		</dependency>
+		<!--redis -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>tk.mybatis</groupId>
+			<artifactId>mapper</artifactId>
+			<version>${tk.mybatis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper</artifactId>
+			<version>${tk.pagehelper.version}</version>
 		</dependency>
 
 		<dependency>
@@ -154,6 +178,20 @@
 			<groupId>com.github.theborakompanioni</groupId>
 			<artifactId>thymeleaf-extras-shiro</artifactId>
 			<version>${thymeleaf-shiro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${httpclient.version}</version>
 		</dependency>
 	</dependencies>
 

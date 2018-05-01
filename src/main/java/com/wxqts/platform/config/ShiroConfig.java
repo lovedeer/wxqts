@@ -53,6 +53,7 @@ public class ShiroConfig {
 		map.put("/app", "authc, perms");
 		map.put("/index", "authc");
 		map.put("/manage", "anon");
+		map.put("/user", "anon");
 
 		shiroFilterFactoryBean.setLoginUrl(SsoConstants.LOGIN_URL);
 		// 登录成功后要跳转的链接

@@ -90,9 +90,15 @@ public class SsoController {
 		return SsoConstants.ON_SUCCESS_URL.substring(1);
 	}
 
-	@RequestMapping(value = "admin_index")
-	public String admin_index(HttpServletRequest req, Model model) {
+	@RequestMapping(value = "manage")
+	public String manage(HttpServletRequest req, Model model) {
 		return "manage";
+	}
+
+	@RequestMapping(value = "user")
+	public String user(HttpServletRequest req, Model model) {
+		model.addAttribute("username", "zhoulong");
+		return "user";
 	}
 
 }
